@@ -26,7 +26,7 @@ export default function TransactionsList({ onTransactionUpdated }: { onTransacti
   const [showModal, setShowModal] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
   const fetchTransactions = async () => {
     try {
