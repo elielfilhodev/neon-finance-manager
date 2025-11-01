@@ -1,10 +1,23 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-});
+// Validate DATABASE_URL when pool is created
+function createPool() {
+  if (!process.env.DATABASE_URL) {
+    console.error('❌ ERRO: DATABASE_URL não está configurada!');
+    console.error('Por favor, crie um arquivo .env.local na raiz do projeto com:');
+    console.error('DATABASE_URL=sua_connection_string_do_neon');
+    console.error('JWT_SECRET=sua_chave_secreta');
+    throw new Error('DATABASE_URL is required');
+  }
+
+  return new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  });
+}
+
+const pool = createPool();
 
 async function init() {
   try {

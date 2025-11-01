@@ -33,3 +33,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# PM2
+logs/
+.pm2/
+ecosystem.config.js.backup

@@ -1,6 +1,13 @@
 import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 
+// Validate DATABASE_URL
+if (!process.env.DATABASE_URL) {
+  console.error('❌ ERRO: DATABASE_URL não está configurada!');
+  console.error('Por favor, configure a variável DATABASE_URL nas variáveis de ambiente');
+  throw new Error('DATABASE_URL is required');
+}
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
